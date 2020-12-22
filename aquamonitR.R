@@ -12,6 +12,15 @@ cache_site <- "AquaCache"
 
 
 post_json <- function(token, path, in_json) {
+    #' POST JSON to the AM API'
+    #'
+    #' Args:
+    #'     token:   Str. Valid API access token
+    #'     path:    Str. Path to enpoint. Will be appended to 'host'
+    #'     in_json: Str. JSON to POST
+    #'
+    #' Returns:
+    #'     Server response.
     url <- paste(host, path, sep = "")
 
     response <- POST(
@@ -31,6 +40,14 @@ post_json <- function(token, path, in_json) {
 
 
 get_json <- function(token, path) {
+    #' GET JSON from the AM API'
+    #'
+    #' Args:
+    #'     token:   Str. Valid API access token
+    #'     path:    Str. Path to enpoint. Will be appended to 'host'
+    #'
+    #' Returns:
+    #'     Server response.
     url <- paste(host, path, sep = "")
 
     response <- GET(
@@ -47,6 +64,7 @@ get_json <- function(token, path) {
 
 
 report_json_error <- function(response) {
+    #' Very basic error handling for POST and GET functions
     msg <- paste(
         "AquaMonitor failed with status:",
         response$status_code,
@@ -99,6 +117,12 @@ login <- function(username = NULL, password = NULL) {
 
 
 query <- setRefClass(
+    #' Main class providing API access. Roughly equivalent to the AM-Python 
+    #' class here
+    #'
+    #'     https://github.com/NIVANorge/Aquamonitor-Python/blob/5cc5f857d45c4414011eb8cefae3cd7e945900df/AquaMonitor.py#L138
+    #'
+    #' although not all methods are implemented yet.
     "query",
     fields = list(
         token = "ANY",
