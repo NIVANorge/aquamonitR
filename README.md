@@ -8,7 +8,7 @@ This repository is currently just a rough translation of the essential parts of 
 
 **To do**. Needs wrapping up as an R package. For now just use 
 
-    source("aquamonitR.R"))
+    source("aquamonitR.R")
 
 ## Quick start
 
@@ -39,3 +39,5 @@ end_dt <- "31.12.2019"
 df <- get_project_chemistry(proj_id, st_dt, end_dt, token = token, approved = TRUE)
 head(df)
 ```
+
+See also the example notebook [here](https://nbviewer.jupyter.org/github/NIVANorge/aquamonitR/blob/main/examples/query_chem.ipynb)
