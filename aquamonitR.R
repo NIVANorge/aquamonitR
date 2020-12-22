@@ -27,8 +27,8 @@ post_json <- function(token, path, in_json) {
         url,
         body = in_json,
         encode = "json",
-        config = c(add_headers(Cookie = paste("aqua_key", token, sep = "="))),
-        verbose()
+        config = c(add_headers(Cookie = paste("aqua_key", token, sep = "=")))
+        #verbose()  # Useful for debugging, but shows entire request, including password
     )
 
     if (response$status_code == 200) {
