@@ -28,7 +28,7 @@ post_json <- function(token, path, in_json) {
         body = in_json,
         encode = "json",
         config = c(add_headers(Cookie = paste("aqua_key", token, sep = "=")))
-        #verbose()  # Useful for debugging, but shows entire request, including password
+        # verbose()  # Useful for debugging, but shows entire request, including password
     )
 
     if (response$status_code == 200) {
@@ -117,7 +117,7 @@ login <- function(username = NULL, password = NULL) {
 
 
 query <- setRefClass(
-    #' Main class providing API access. Roughly equivalent to the AM-Python 
+    #' Main class providing API access. Roughly equivalent to the AM-Python
     #' class here
     #'
     #'     https://github.com/NIVANorge/Aquamonitor-Python/blob/5cc5f857d45c4414011eb8cefae3cd7e945900df/AquaMonitor.py#L138
@@ -268,42 +268,47 @@ get_project_chemistry <- function(proj_id, st_dt, end_dt, token = None, approved
 
     # Tidy
     drops <- c("$type", "Id", "Sample.Id", "Method.Id")
-    df[, !(names(df) %in% drops)]
+    df <- df[, !(names(df) %in% drops)]
+
+    df$Sample.SampleDate <- as.POSIXct(df$Sample.SampleDate)
+
+    if (!"Sample.Depth1" %in% colnames(df)) {
+        df$Sample.Depth1 <- as.numeric(NA)
+    }
+    if (!"Sample.Depth2" %in% colnames(df)) {
+        df$Sample.Depth2 <- as.numeric(NA)
+    }
 
     setnames(df,
         old = c(
-            "Sample.SampleDate", "Sample.Depth2", "Sample.Station.Id",
-            "Sample.Station.Code", "Sample.Station.Name", "Sample.Station.Project._Id",
+            "Sample.SampleDate", "Sample.Station.Id", "Sample.Station.Code",
+            "Sample.Station.Name", "Sample.Station.Project._Id",
             "Sample.Station.Project._Name", "Method.Name", "Method.Unit",
-            "Method.Laboratory", "Method.MethodRef", "Sample.Method.Code"
+            "Sample.Depth1", "Sample.Depth2"
         ),
         new = c(
-            "SampleDate", "Depth2", "StationId",
-            "StationCode", "StationName", "ProjectId",
+            "SampleDate", "StationId", "StationCode",
+            "StationName", "ProjectId",
             "ProjectName", "ParameterName", "Unit",
-            "Laboratory", "MethodRef", "MethodCode"
+            "Depth1", "Depth2"
         )
     )
 
     df <- select(
-        df, "ProjectId",
+        df,
+        "ProjectId",
         "ProjectName",
         "StationId",
         "StationCode",
         "StationName",
         "SampleDate",
+        "Depth1",
         "Depth2",
         "ParameterName",
         "Flag",
         "Value",
         "Unit",
         "Approved",
-        "QuantificationLimit",
-        "DetectionLimit",
-        "Laboratory",
-        "MethodCode",
-        "MethodRef",
-        "Remark"
     )
 
     if (approved == TRUE) {
