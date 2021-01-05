@@ -225,7 +225,7 @@ query <- setRefClass(
     )
 )
 
-get_project_chemistry <- function(proj_id, st_dt, end_dt, token = None, approved = TRUE) {
+get_project_chemistry <- function(proj_id, st_dt, end_dt, token = None) {
     #' Get all water chemistry data for the specified project ID and date range.
     #'
     #' Args:
@@ -235,7 +235,6 @@ get_project_chemistry <- function(proj_id, st_dt, end_dt, token = None, approved
     #'     token:    Str. Optional. Valid API access token. If None, will first attempt to read
     #'               credentials from a '.auth' file in the installation folder. If this fails,
     #'               will prompt for username and password
-    #'     approved: Bool. Whether to return only 'approved' samples (default) or all samples
     #'
     #' Returns:
     #'     Dataframe.
@@ -250,7 +249,7 @@ get_project_chemistry <- function(proj_id, st_dt, end_dt, token = None, approved
         sep = " "
     )
 
-    table <- "water_chemistry_input"
+    table <- "water_chemistry_output"
     qry <- query(where = where, token = token)
     result <- qry$map(table)
 
@@ -267,23 +266,23 @@ get_project_chemistry <- function(proj_id, st_dt, end_dt, token = None, approved
     df <- df[!is.na(df$Value), ]
 
     # Tidy
-    drops <- c("$type", "Id", "Sample.Id", "Method.Id")
+    drops <- c("$type", "Sample.$type", "Parameter.Id", "Sample.Id")
     df <- df[, !(names(df) %in% drops)]
 
     df$Sample.SampleDate <- as.POSIXct(df$Sample.SampleDate)
 
-    if (!"Sample.Depth1" %in% colnames(df)) {
-        df$Sample.Depth1 <- as.numeric(NA)
-    }
-    if (!"Sample.Depth2" %in% colnames(df)) {
-        df$Sample.Depth2 <- as.numeric(NA)
-    }
+    # if (!"Sample.Depth1" %in% colnames(df)) {
+    #     df$Sample.Depth1 <- as.numeric(NA)
+    # }
+    # if (!"Sample.Depth2" %in% colnames(df)) {
+    #     df$Sample.Depth2 <- as.numeric(NA)
+    # }
 
     setnames(df,
         old = c(
             "Sample.SampleDate", "Sample.Station.Id", "Sample.Station.Code",
-            "Sample.Station.Name", "Sample.Station.Project._Id",
-            "Sample.Station.Project._Name", "Method.Name", "Method.Unit",
+            "Sample.Station.Name", "Sample.Station.Project.Id",
+            "Sample.Station.Project.Name", "Parameter.Name", "Parameter.Unit",
             "Sample.Depth1", "Sample.Depth2"
         ),
         new = c(
@@ -308,12 +307,7 @@ get_project_chemistry <- function(proj_id, st_dt, end_dt, token = None, approved
         "Flag",
         "Value",
         "Unit",
-        "Approved",
     )
-
-    if (approved == TRUE) {
-        df <- df[which(df$Approved), ]
-    }
 
     return(df)
 }
