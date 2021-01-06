@@ -96,9 +96,11 @@ login <- function(username = NULL, password = NULL) {
 
     if (is.null(username)) {
         username <- getPass("Username: ")
+        Encoding(username) <- "UTF-8"
     }
     if (is.null(password)) {
         password <- getPass("Password: ")
+        Encoding(password) <- "UTF-8"
     }
 
     loginurl <- paste(aqua_site, "login", sep = "/")
