@@ -1,4 +1,4 @@
-suppressPackageStartupMessages(library("httr"))
+suppressPackageStartupMessages(library("curl"))
 suppressPackageStartupMessages(library("getPass"))
 suppressPackageStartupMessages(library("jsonlite"))
 suppressPackageStartupMessages(library("data.table"))
@@ -11,52 +11,71 @@ archive_site <- "AquaServices"
 cache_site <- "AquaCache"
 
 
+#' POST JSON to the AM API'
+#'
+#' Args:
+#'     token:   Str. Valid API access token
+#'     path:    Str. Path to enpoint. Will be appended to 'host'
+#'     in_json: Str. JSON to POST
+#'
+#' Returns:
+#'     Server response.
 post_json <- function(token, path, in_json) {
-    #' POST JSON to the AM API'
-    #'
-    #' Args:
-    #'     token:   Str. Valid API access token
-    #'     path:    Str. Path to enpoint. Will be appended to 'host'
-    #'     in_json: Str. JSON to POST
-    #'
-    #' Returns:
-    #'     Server response.
-    url <- paste(host, path, sep = "")
-
-    response <- POST(
-        url,
-        body = in_json,
-        encode = "json",
-        config = c(add_headers(Cookie = paste("aqua_key", token, sep = "=")))
-        # verbose()  # Useful for debugging, but shows entire request, including password
-    )
-
-    if (response$status_code == 200) {
-        return(fromJSON(content(response, "text"), flatten = TRUE))
+    
+    url <- paste0(host, path)
+    
+    header <- list("Content-Type" = "application/json", "Cookie" = paste0("aqua_key=", token))
+    
+    handle <- curl::new_handle()
+    
+    in_json <- jsonlite::toJSON(in_json, auto_unbox = TRUE)
+    
+    curl::handle_setopt(handle, customrequest = "POST", postfields = in_json)
+    
+    curl::handle_setheaders(handle, .list = header)
+    
+    response <- curl::curl_fetch_memory(url = url, handle = handle)
+    
+    usertype <- response$Usertype
+    
+    if (response$status_code == 200L) {
+        response <- rawToChar(response$content)
+        Encode(response) <- "UTF-8"
+        response <- jsonlite::fromJSON(response)
+        return(response)
     } else {
         report_json_error(response)
     }
 }
 
 
+#' GET JSON from the AM API'
+#'
+#' Args:
+#'     token:   Str. Valid API access token
+#'     path:    Str. Path to enpoint. Will be appended to 'host'
+#'
+#' Returns:
+#'     Server response.
 get_json <- function(token, path) {
-    #' GET JSON from the AM API'
-    #'
-    #' Args:
-    #'     token:   Str. Valid API access token
-    #'     path:    Str. Path to enpoint. Will be appended to 'host'
-    #'
-    #' Returns:
-    #'     Server response.
-    url <- paste(host, path, sep = "")
-
-    response <- GET(
-        url,
-        add_headers(Cookie = paste("aqua_key", token, sep = "="))
-    )
-
-    if (response$status_code == 200) {
-        return(fromJSON(content(response, "text"), flatten = TRUE))
+    
+    url <- paste0(url, path)
+    
+    header <- list("Cookie" = paste0("aqua_key=", token))
+    
+    handle <- curl::new_handle()
+    
+    curl::handle_setopt(handle, customrequest = "GET")
+    
+    curl::handle_setheaders(handle, .list = header)
+    
+    response <- curl::curl_fetch_memory(url = url, handle = handle)
+    
+    if (response$status_code == 200L) {
+        response <- rawToChar(response$content)
+        Encoding(response) <- "UTF-8"
+        response <- jsonlite::fromJSON(response)
+        return(response)
     } else {
         report_json_error(response)
     }
