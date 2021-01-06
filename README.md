@@ -36,7 +36,7 @@ head(stn_df)
 proj_id <- 12433
 st_dt <- "01.01.2019"
 end_dt <- "31.12.2019"
-df <- get_project_chemistry(proj_id, st_dt, end_dt, token = token, approved = TRUE)
+df <- get_project_chemistry(proj_id, st_dt, end_dt, token = token)
 head(df)
 ```
 
