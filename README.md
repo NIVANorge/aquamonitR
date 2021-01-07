@@ -1,8 +1,6 @@
 aquamonitR
 ================
 
-# aquamonitR
-
 Query the Nivabase directly from your R code and get results back as R
 data.frames. {aquamonitR} uses the Aquamonitor API to access the
 Nivabase securely, regardless of whether you’re logged in to the NIVA
