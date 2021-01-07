@@ -14,6 +14,8 @@ development here will lag development of Aquamonitor-Python.
 
 ## Installation
 
+aquamonitR is pre-installed on [NIVA's JupyterHub](https://jupyterhub.niva.no). To install locally:
+
 ``` r
 # install.packages("devtools")
 remotes::install_github("NIVANorge/aquamonitR")
