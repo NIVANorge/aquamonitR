@@ -41,7 +41,8 @@ get_project_chemistry <- function(proj_id, st_dt, end_dt, token = NULL, na.rm = 
   drops <- c("$type", "Sample.$type", "Parameter.Id", "Sample.Id")
   df <- df[, !(names(df) %in% drops)]
 
-  df$Sample.SampleDate <- as.POSIXct(df$Sample.SampleDate)
+  df$Sample.SampleDate <- as.POSIXct(df$Sample.SampleDate,
+                                     format = "%Y-%m-%dT%H:%M:%SZ")
 
   # if (!("Sample.Depth1" %in% colnames(df))) {
   #     df$Sample.Depth1 <- NA_real_
@@ -54,6 +55,7 @@ get_project_chemistry <- function(proj_id, st_dt, end_dt, token = NULL, na.rm = 
                "Sample.Station.Id", "Sample.Station.Code", "Sample.Station.Name",
                "Sample.SampleDate", "Sample.Depth1", "Sample.Depth2", "Parameter.Name",
                "Flag", "Value", "Parameter.Unit")]
+
   names(df) <- c("ProjectId", "ProjectName",
                  "StationId", "StationCode", "StationName",
                  "SampleDate", "Depth1", "Depth2", "ParameterName",
