@@ -40,8 +40,8 @@ post_json <- function(token, path, in_json) {
     
     if (response$status_code == 200L) {
         response <- rawToChar(response$content)
-        Encode(response) <- "UTF-8"
-        response <- jsonlite::fromJSON(response)
+        Encoding(response) <- "UTF-8"
+        response <- jsonlite::fromJSON(response, flatten = TRUE)
         return(response)
     } else {
         report_json_error(response)
@@ -59,7 +59,7 @@ post_json <- function(token, path, in_json) {
 #'     Server response.
 get_json <- function(token, path) {
     
-    url <- paste0(url, path)
+    url <- paste0(host, path)
     
     header <- list("Cookie" = paste0("aqua_key=", token))
     
@@ -74,7 +74,7 @@ get_json <- function(token, path) {
     if (response$status_code == 200L) {
         response <- rawToChar(response$content)
         Encoding(response) <- "UTF-8"
-        response <- jsonlite::fromJSON(response)
+        response <- jsonlite::fromJSON(response, flatten = TRUE)
         return(response)
     } else {
         report_json_error(response)
