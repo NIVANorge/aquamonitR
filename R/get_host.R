@@ -1,9 +1,7 @@
 .get_host <- function() {
   
-  if (nzchar(Sys.getenv("AQUAMONITOR"))) {
-    host <- "http://www.aquamonitor.no/"
-  } else {
-    host <- "https://test-aquamonitor.niva.no/"
+  if (!exists("host")) {
+    host <- "https://www.aquamonitor.niva.no/"
   }
   
   host

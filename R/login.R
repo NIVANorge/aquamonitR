@@ -12,11 +12,11 @@ login <- function(username = NULL, password = NULL) {
 
   if (is.null(username)) {
     username <- getPass::getPass("Username: ")
-    username <- enc2utf8(username)
+    Encoding(username) <- "UTF-8"
   }
   if (is.null(password)) {
     password <- getPass::getPass("Password: ")
-    password <- enc2utf8(password)
+    Encoding(password) <- "UTF-8"
   }
 
   aqua_site <- .get_aqua_site()

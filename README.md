@@ -1,8 +1,6 @@
 aquamonitR
 ================
 
-# aquamonitR
-
 Query the Nivabase directly from your R code and get results back as R
 data.frames. {aquamonitR} uses the Aquamonitor API to access the
 Nivabase securely, regardless of whether you’re logged in to the NIVA
@@ -18,15 +16,15 @@ development here will lag development of Aquamonitor-Python.
 
 ``` r
 # install.packages("devtools")
-remotes::install_github("RaoulWolf/aquamonitR")
+remotes::install_github("NIVANorge/aquamonitR")
 ```
 
 ## Quick start
 
     library(aquamonitR)
     
-    # The host is automatically set to the test version.
-    # This will be changed in the future
+    # this is to overwrite the standard host
+    host <- "https://test-aquamonitor.niva.no/"
     
     # Login
     token <- login()
@@ -43,7 +41,6 @@ remotes::install_github("RaoulWolf/aquamonitR")
     head(stn_df)
     
     # Get water chemistry for project and time period
-    proj_id <- 12433
     st_dt <- "01.01.2019"
     end_dt <- "31.12.2019"
     df <- get_project_chemistry(proj_id, st_dt, end_dt, token = token)
