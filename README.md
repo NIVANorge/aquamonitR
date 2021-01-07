@@ -31,13 +31,13 @@ remotes::install_github("NIVANorge/aquamonitR")
     
     # List all projects
     proj_df <- get_projects(token = token)
-    paste0(nrow(proj_df), "projects in the database.")
+    paste0(nrow(proj_df), " projects in the database.")
     head(proj_df)
     
     # Get stations in project
     proj_id <- 12433
     stn_df <- get_project_stations(proj_id, token = token)
-    paste0(nrow(stn_df), "stations in project.")
+    paste0(nrow(stn_df), " stations in project.")
     head(stn_df)
     
     # Get water chemistry for project and time period
