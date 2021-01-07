@@ -18,7 +18,7 @@ development here will lag development of Aquamonitor-Python.
 
 ``` r
 # install.packages("devtools")
-remotes::install_github("RaoulWolf/aquamonitR")
+remotes::install_github("NIVANorge/aquamonitR")
 ```
 
 ## Quick start

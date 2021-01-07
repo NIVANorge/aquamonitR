@@ -17,7 +17,7 @@ This repository is currently just a rough translation of the essential parts of 
 
 ```{r,eval=FALSE}
 # install.packages("devtools")
-remotes::install_github("RaoulWolf/aquamonitR")
+remotes::install_github("NIVANorge/aquamonitR")
 ```
 
 ## Quick start
