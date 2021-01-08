@@ -6,7 +6,7 @@
 #' @return \code{list}: Server response.
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON
-.get_json <- function(token, path) {
+get_json <- function(token, path) {
 
   host <- .get_host()
 
@@ -22,12 +22,18 @@
 
   response <- curl::curl_fetch_memory(url = url, handle = handle)
 
-  if (response$status_code == 200L) {
-    response <- rawToChar(response$content)
-    Encoding(response) <- "UTF-8"
-    response <- jsonlite::fromJSON(response, flatten = TRUE)
-    return(response)
-  } else {
+  if (response$status_code != 200L) {
+
     .report_json_error(response)
+
   }
+
+  response <- rawToChar(response$content)
+
+  Encoding(response) <- "UTF-8"
+
+  response <- jsonlite::fromJSON(response, flatten = TRUE)
+
+  response
+
 }

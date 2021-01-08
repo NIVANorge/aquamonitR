@@ -11,55 +11,54 @@
 #' @export
 get_project_chemistry <- function(proj_id, st_dt, end_dt, token = NULL, na.rm = TRUE) {
 
-  ## Query API and save result-set to cache
-  where <- paste0("project_id = ", proj_id,
-                  " and sample_date >= ", st_dt,
-                  " and sample_date <= ", end_dt)
+  where <- paste0("project_id = ", proj_id, " and sample_date >= ", st_dt, " and sample_date <= ", end_dt)
 
   table <- "water_chemistry_output"
 
   qry <- .query(where = where, token = token)
+
   result <- qry$map(table)
 
   cache_site <- .get_cache_site()
 
-  ## Iterate over cache and build dataframe
   df_list <- list()
+
   for (page in 0:(result$Pages - 1)) {
+
     url <- paste(cache_site, "query", qry$key, table, page, sep = "/")
-    response <- .get_json(qry$token, url)
+
+    response <- get_json(qry$token, url)
+
     df_list[[page + 1]] <- response$Items
   }
 
   df <- do.call("rbind", df_list)
 
   if (na.rm) {
+
     df <- df[!is.na(df$Value), ]
+
   }
 
-  ## Tidy
-  drops <- c("$type", "Sample.$type", "Parameter.Id", "Sample.Id")
-  df <- df[, !(names(df) %in% drops)]
+  df <- df[, !(names(df) %in% c("$type", "Sample.$type", "Parameter.Id", "Sample.Id"))]
 
-  df$Sample.SampleDate <- as.POSIXct(df$Sample.SampleDate,
-                                     format = "%Y-%m-%dT%H:%M:%SZ")
+  df$Sample.SampleDate <- as.POSIXct(df$Sample.SampleDate, format = "%Y-%m-%dT%H:%M:%SZ")
 
   # if (!("Sample.Depth1" %in% colnames(df))) {
-  #     df$Sample.Depth1 <- NA_real_
+  #
+  #   df$Sample.Depth1 <- NA_real_
+  #
   # }
+  #
   # if (!("Sample.Depth2" %in% colnames(df))) {
-  #     df$Sample.Depth2 <- NA_real_
+  #
+  #   df$Sample.Depth2 <- NA_real_
+  #
   # }
 
-  df <- df[, c("Sample.Station.Project.Id", "Sample.Station.Project.Name",
-               "Sample.Station.Id", "Sample.Station.Code", "Sample.Station.Name",
-               "Sample.SampleDate", "Sample.Depth1", "Sample.Depth2", "Parameter.Name",
-               "Flag", "Value", "Parameter.Unit")]
+  df <- df[, c("Sample.Station.Project.Id", "Sample.Station.Project.Name", "Sample.Station.Id", "Sample.Station.Code", "Sample.Station.Name", "Sample.SampleDate", "Sample.Depth1", "Sample.Depth2", "Parameter.Name", "Flag", "Value", "Parameter.Unit")]
 
-  names(df) <- c("ProjectId", "ProjectName",
-                 "StationId", "StationCode", "StationName",
-                 "SampleDate", "Depth1", "Depth2", "ParameterName",
-                 "Flag", "Value", "Unit")
+  names(df) <- c("ProjectId", "ProjectName", "StationId", "StationCode", "StationName", "SampleDate", "Depth1", "Depth2", "ParameterName", "Flag", "Value", "Unit")
 
   df
 

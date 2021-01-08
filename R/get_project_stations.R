@@ -9,16 +9,19 @@
 get_project_stations <- function(proj_id, token) {
 
   if (is.null(token)) {
+
     token <- login()
+
   }
 
   aqua_site <- .get_aqua_site()
 
   url <- paste0(aqua_site, "/api/projects/", proj_id, "/stations")
-  df <- .get_json(token, url)
 
-  ## Tidy
+  df <- get_json(token, url)
+
   df <- df[, c("ProjectId", "Id", "Code", "Name", "Type._Text")]
+
   names(df) <- c("ProjectId", "StationId", "StationCode", "StationName", "Type")
 
   df
