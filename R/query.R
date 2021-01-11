@@ -1,3 +1,4 @@
+#' @importFrom methods new setRefClass
 .query <- setRefClass(
 
   "query",

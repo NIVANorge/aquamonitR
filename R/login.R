@@ -36,7 +36,7 @@ login <- function(username = NULL, password = NULL) {
 
   usertype <- response$Usertype
 
-  if (!(usertype == "NoUser")) {
+  if (usertype != "NoUser") {
 
     token <- response$Token
 

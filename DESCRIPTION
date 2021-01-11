@@ -1,19 +1,25 @@
 Package: aquamonitR
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Query the Nivabase Directly From Your R Code
+Version: 0.0.1
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+  c(person(given = "James",
+           family = "Sample",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+           email = "jes@niva.no"),
+    person(given = "Raoul",
+           family = "Wolf",
+           role = "aut",
+           email = "raw@niva.no"))
+Description: Query the Nivabase directly from your R code and get results back as R data.frames. 
+  {aquamonitR} uses the Aquamonitor API to access the Nivabase securely, 
+  regardless of whether you're logged in to the NIVA network/VPN. 
 License: MIT + file LICENSE
 Depends: R (>= 3.5.0)
 Imports:
   curl,
   getPass,
-  jsonlite
+  jsonlite,
+  methods
 URL: https://github.com/NIVANorge/aquamonitR
 BugReports: https://github.com/NIVANorge/aquamonitR/issues
 Encoding: UTF-8

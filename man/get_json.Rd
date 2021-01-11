@@ -9,7 +9,7 @@ get_json(token, path)
 \arguments{
 \item{token}{\code{character}: Valid API access token. If \code{NULL}, will first attempt to read credentials from a '.auth' file in the installation folder. If this fails, will prompt for username and password.}
 
-\item{path}{\code{character}: Path to enpoint. Will be appended to 'host'.}
+\item{path}{\code{character}: Path to endpoint. Will be appended to 'host'.}
 }
 \value{
 \code{list}: Server response.
