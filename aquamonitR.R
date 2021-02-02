@@ -352,7 +352,7 @@ get_projects <- function(token = NULL) {
 
     # Tidy
     setnames(df,
-        old = c("_Id", "_Name", "_Description", "_Number", "_StartDate", "_EndDate"),
+        old = c("Id", "Name", "Description", "Number", "StartDate", "EndDate"),
         new = c(
             "ProjectId", "ProjectName", "Description", "ProjectCode",
             "StartDate", "EndDate"
