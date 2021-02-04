@@ -12,7 +12,7 @@ login <- function(username = NULL, password = NULL) {
 
   if (is.null(username)) {
 
-    username <- getPass::getPass("Username: ")
+    username <- getPass::getPass("Username:")
 
     Encoding(username) <- "UTF-8"
 
@@ -20,7 +20,7 @@ login <- function(username = NULL, password = NULL) {
 
   if (is.null(password)) {
 
-    password <- getPass::getPass("Password: ")
+    password <- getPass::getPass("Password:")
 
     Encoding(password) <- "UTF-8"
 

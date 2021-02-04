@@ -6,7 +6,7 @@
 #'
 #' @return \code{list}: A data.frame.
 #' @export
-get_project_stations <- function(proj_id, token) {
+get_project_stations <- function(proj_id, token = NULL) {
 
   if (is.null(token)) {
 

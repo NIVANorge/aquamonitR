@@ -11,6 +11,12 @@
 #' @export
 get_project_chemistry <- function(proj_id, st_dt, end_dt, token = NULL, na.rm = TRUE) {
 
+  if (is.null(token)) {
+
+    token <- login()
+
+  }
+
   where <- paste0("project_id = ", proj_id, " and sample_date >= ", st_dt, " and sample_date <= ", end_dt)
 
   table <- "water_chemistry_output"
@@ -30,9 +36,10 @@ get_project_chemistry <- function(proj_id, st_dt, end_dt, token = NULL, na.rm = 
     response <- get_json(qry$token, url)
 
     df_list[[page + 1]] <- response$Items
+
   }
 
-  df <- do.call("rbind", df_list)
+  df <- do.call(rbind, df_list)
 
   if (na.rm) {
 
