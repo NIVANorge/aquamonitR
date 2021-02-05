@@ -1,9 +1,11 @@
 .get_host <- function() {
-  
+
   if (!exists("host")) {
-    host <- "https://www.aquamonitor.niva.no/"
+
+    host <- "http://www.aquamonitor.no/"
+
   }
-  
+
   host
-  
+
 }
