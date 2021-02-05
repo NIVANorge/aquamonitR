@@ -4,7 +4,7 @@
 \alias{get_project_stations}
 \title{Get stations associated with a specific project.}
 \usage{
-get_project_stations(proj_id, token)
+get_project_stations(proj_id, token = NULL)
 }
 \arguments{
 \item{proj_id}{\code{integer}: Project ID.}

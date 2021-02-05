@@ -20,7 +20,7 @@ remotes::install_github("NIVANorge/aquamonitR")
 
 ## Quick start
 
-```{reval=FALSE}
+```{r,eval=FALSE}
 library(aquamonitR)
 
 # this is to overwrite the standard host
