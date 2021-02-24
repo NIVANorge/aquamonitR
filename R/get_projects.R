@@ -15,7 +15,7 @@ get_projects <- function(token = NULL) {
 
   aqua_site <- .get_aqua_site()
 
-  url <- paste0(aqua_site, "/api/query/Projects")
+  url <- paste0(aqua_site, "/api/Projects")
 
   df <- get_json(token, url)
 
