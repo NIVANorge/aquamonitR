@@ -2,7 +2,7 @@
 
   if (!exists("host")) {
 
-    host <- "http://www.aquamonitor.no/"
+    host <- "https://aquamonitor.niva.no/"
 
   }
 
