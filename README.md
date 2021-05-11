@@ -26,9 +26,6 @@ remotes::install_github("NIVANorge/aquamonitR")
 ```r
 library(aquamonitR)
 
-# This is to overwrite the standard host
-host <- "https://test-aquamonitor.niva.no/"
-
 # Login
 token <- login()
 
