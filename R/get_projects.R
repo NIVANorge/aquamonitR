@@ -21,7 +21,7 @@ get_projects <- function(token = NULL) {
 
   df <- df[, c("Id", "Number", "Name", "Description")]
 
-  names(df) <- c("ProjectId", "ProjectCode", "ProjectName", "Description")
+  names(df) <- c("project_id", "project_code", "project_name", "description")
 
   df
 

@@ -20,9 +20,9 @@ get_project_stations <- function(proj_id, token = NULL) {
 
   df <- get_json(token, url)
 
-  df <- df[, c("ProjectId", "Id", "Code", "Name", "Type._Text")]
+  df <- df[, c("Project.Id", "Id", "Code", "Name", "Type._Text")]
 
-  names(df) <- c("ProjectId", "StationId", "StationCode", "StationName", "Type")
+  names(df) <- c("project_id", "station_id", "station_code", "station_name", "type")
 
   df
 
