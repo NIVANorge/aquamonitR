@@ -63,9 +63,13 @@ get_project_chemistry <- function(proj_id, st_dt, end_dt, token = NULL, na.rm = 
   #
   # }
 
-  df <- df[, c("Sample.Station.Project.Id", "Sample.Station.Project.Name", "Sample.Station.Id", "Sample.Station.Code", "Sample.Station.Name", "Sample.SampleDate", "Sample.Depth1", "Sample.Depth2", "Parameter.Name", "Flag", "Value", "Parameter.Unit")]
+  # Split the timestamp into the date & time part
+  df$SampleDate <- as.Date(df$Sample.SampleDate)
+  df$SampleTime <- format(df$Sample.SampleDate, format = "%H:%M:%S")
 
-  names(df) <- c("project_id", "project_name", "station_id", "station_code", "station_name", "sample_date", "depth1", "depth2", "parameter_name", "flag", "value", "unit")
+  df <- df[, c("Sample.Station.Project.Id", "Sample.Station.Project.Name", "Sample.Station.Id", "Sample.Station.Code", "Sample.Station.Name", "SampleDate", "SampleTime", "Sample.Depth1", "Sample.Depth2", "Parameter.Name", "Flag", "Value", "Parameter.Unit")]
+
+  names(df) <- c("project_id", "project_name", "station_id", "station_code", "station_name", "sample_date", "sample_time", "depth1", "depth2", "parameter_name", "flag", "value", "unit")
 
   df
 
