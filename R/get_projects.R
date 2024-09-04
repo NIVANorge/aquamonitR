@@ -19,9 +19,9 @@ get_projects <- function(token = NULL) {
 
   df <- get_json(token, url)
 
-  df <- df[, c("Id", "Number", "Name", "Description")]
+  df <- df[, c("Id", "Name", "Description", "O_Numbers")]
 
-  names(df) <- c("project_id", "project_code", "project_name", "description")
+  names(df) <- c("project_id", "project_name", "description", "project_code")
 
   df
 
