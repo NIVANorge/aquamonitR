@@ -39,7 +39,7 @@ get_project_chemistry <- function(proj_id, st_dt, end_dt, token = NULL, na.rm = 
 
   }
 
-  df <- do.call(rbind, df_list)
+  df <- do.call(dplyr::bind_rows, df_list)
 
   if (na.rm) {
 
