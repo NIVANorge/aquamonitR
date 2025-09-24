@@ -13,7 +13,7 @@ get_plankton_parameters(proj_id, st_dt, end_dt, token = NULL, na.rm = TRUE)
 
 \item{end_dt}{\code{character}: End of period of interest in format 'dd.mm.yyyy'.}
 
-\item{token}{\code{character}: Valid API access token. If \code{NULL}, will first attempt to read credentials from a '.auth' file in the installation folder. If this fails, will prompt for username and password.}
+\item{token}{\code{character}: Valid API access token. If \code{NULL}, will prompt for username and password.}
 
 \item{na.rm}{\code{logical}: Should missing values be removed? Defaults to \code{TRUE}.}
 }
