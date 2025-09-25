@@ -7,7 +7,7 @@
 post_json(token, path, in_json)
 }
 \arguments{
-\item{token}{\code{character}: Valid API access token. If \code{NULL}, will first attempt to read credentials from a '.auth' file in the installation folder. If this fails, will prompt for username and password.}
+\item{token}{\code{character}: Valid API access token.}
 
 \item{path}{\code{character}: Path to endpoint. Will be appended to 'host'.}
 

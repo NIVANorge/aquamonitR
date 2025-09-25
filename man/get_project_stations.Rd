@@ -9,7 +9,7 @@ get_project_stations(proj_id, token = NULL)
 \arguments{
 \item{proj_id}{\code{integer}: Project ID.}
 
-\item{token}{\code{character}: Valid API access token. If \code{NULL}, will first attempt to read credentials from a '.auth' file in the installation folder. If this fails, will prompt for username and password.}
+\item{token}{\code{character}: Valid API access token. If \code{NULL}, will prompt for username and password.}
 }
 \value{
 \code{list}: A data.frame.

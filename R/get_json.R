@@ -1,6 +1,6 @@
 #' @title GET JSON from the AM API'
 #'
-#' @param token \code{character}: Valid API access token. If \code{NULL}, will first attempt to read credentials from a '.auth' file in the installation folder. If this fails, will prompt for username and password.
+#' @param token \code{character}: Valid API access token.
 #' @param path \code{character}: Path to endpoint. Will be appended to 'host'.
 #'
 #' @return \code{list}: Server response.

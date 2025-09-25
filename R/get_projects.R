@@ -1,7 +1,7 @@
 #' @title Get full list of projects in the Nivadatabase/Aquamonitor.
 #' @description Get full list of projects in the Nivadatabase/Aquamonitor.
 #'
-#' @param token \code{character}: Valid API access token. If \code{NULL}, will first attempt to read credentials from a '.auth' file in the installation folder. If this fails, will prompt for username and password.
+#' @param token \code{character}: Valid API access token. If \code{NULL}, will prompt for username and password.
 #'
 #' @return \code{list}: A data.frame.
 #' @export
