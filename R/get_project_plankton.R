@@ -68,7 +68,7 @@ get_project_plankton <- function(proj_id, st_dt, end_dt, param_id = NULL, token 
                "Sample.Station.Code", "Sample.Station.Name", "SampleDate", "Sample.Depth1",
                "Sample.Depth2", "Category.Name", "Parameter.Name", "Value", "Parameter.Unit")]
 
-  names(df) <- c("project_id", "project_name", "station_id", "station_code", "station_name", "sample_documendate",
+  names(df) <- c("project_id", "project_name", "station_id", "station_code", "station_name", "sample_date",
                  "depth_1", "depth_2", "group", "parameter", "value", "unit")
   df
 }
