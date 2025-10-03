@@ -2,6 +2,7 @@
 
 export(get_plankton_parameters)
 export(get_project_chemistry)
+export(get_project_plankton)
 export(get_project_stations)
 export(get_projects)
 export(login)

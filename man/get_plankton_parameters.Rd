@@ -2,24 +2,18 @@
 % Please edit documentation in R/get_plankton_parameters.R
 \name{get_plankton_parameters}
 \alias{get_plankton_parameters}
-\title{Get all plankton parameter data for the specified project ID and date range.}
+\title{Get Plankton Parameters}
 \usage{
-get_plankton_parameters(proj_id, st_dt, end_dt, token = NULL, na.rm = TRUE)
+get_plankton_parameters(name = NULL, token = NULL)
 }
 \arguments{
-\item{proj_id}{\code{integer}: Project ID.}
-
-\item{st_dt}{\code{character}: Start of period of interest in format 'dd.mm.yyyy'.}
-
-\item{end_dt}{\code{character}: End of period of interest in format 'dd.mm.yyyy'.}
+\item{name}{\code{character}: Optional parameter name to filter results. Defaults to \code{NULL}, which retrieves all parameters.}
 
 \item{token}{\code{character}: Valid API access token. If \code{NULL}, will prompt for username and password.}
-
-\item{na.rm}{\code{logical}: Should missing values be removed? Defaults to \code{TRUE}.}
 }
 \value{
-\code{list}: A data.frame.
+\code{data.frame}: A data.frame with columns: id, parameter, unit, sort.
 }
 \description{
-Get all plankton parameter data for the specified project ID and date range.
+Get Plankton Parameters and their descriptions from AquaMonitor
 }
